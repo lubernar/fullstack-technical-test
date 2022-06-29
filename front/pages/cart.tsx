@@ -4,9 +4,14 @@ import { useAppContext } from 'context/AppContext';
 
 function cart() {
   const { cart, addToCart, removeFromCart } = useAppContext();
+
+  const totalPrice = () => {
+    return cart[0].items.reduce((a, b) => a+ b.salePrice, 0);
+  }
+
   return (
     <main className={styles.container}>
-      <h2>Mon panier</h2>
+      <h2>{`Mon panier ${totalPrice()}€`}</h2>
       <div>
         {cart[0].items.map((item, i) => (
           <div className={styles.cart_items} key={i}>
