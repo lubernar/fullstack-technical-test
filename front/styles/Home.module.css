@@ -81,8 +81,8 @@
 }
 
 .card {
-  margin: 1rem;
-  flex-basis: 45%;
+  width: 25%;
+  flex-direction: column;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
@@ -114,9 +114,21 @@
   height: 1em;
 }
 
+.hits_container_wrap {
+  margin-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 600px) {
   .grid {
-    width: 100%;
+    width: 50%;
     flex-direction: column;
   }
+
+@media (max-width: 600px) {
+  .card {
+    width: 50%;
+  }
+}
 }

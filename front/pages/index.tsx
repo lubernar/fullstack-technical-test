@@ -1,14 +1,23 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import algoliasearch from "algoliasearch/lite";
-import { InstantSearch } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Configure, connectHits } from "react-instantsearch-dom";
+import Card from '../components/Card'
 
 const searchClient = algoliasearch(
   "latency",
   "6be0576ff61c053d5f9a3225e2a90f76"
 );
 
+const Hits = (props) => {
+  return props.hits.map((hits, i) => {
+    return <Card key={i} {...hits} />;
+  });
+};
 export default function Home() {
+
+  const CustomHits = connectHits(Hits);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,13 +26,12 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to La Fourche Frontend Technical Test v2 !
-        </h1>
         <InstantSearch indexName="bestbuy" searchClient={searchClient}>
-          {/* ##################################
-              Your instantsearch code goes here.
-              ################################## */}
+          <Configure hitsPerPage={20} />
+          <SearchBox />
+          <div className={styles.hits_container_wrap}>
+            <CustomHits />
+          </div>
         </InstantSearch>
       </main>
 
