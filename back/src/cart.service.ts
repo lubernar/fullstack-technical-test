@@ -7,14 +7,19 @@ export type Cart = {
 };
 
 export type Item = {
-  id: string;
+  objectID: string;
   quantity: number;
 };
 
 @Injectable()
 export class CartService {
   // Use this array as your database
-  private carts: Cart[] = [];
+  private carts: Cart[] = [
+    {
+      id : '',
+      items : []
+    }
+  ];
 
   create(): Cart {
     throw new NotImplementedException();
@@ -25,10 +30,17 @@ export class CartService {
   }
 
   putItem(id: string, item: Item): Cart {
-    throw new NotImplementedException();
+    this.carts[0].items.push(item);
+    return this.carts[0];
   }
 
   putItems(id: string, items: Item[]): Cart {
     throw new NotImplementedException();
+  }
+
+  removeItem(id: string): Cart {
+    const indexOfObj = this.carts[0].items.findIndex((item) => item.objectID === id);
+    this.carts[0].items.splice(indexOfObj, 1);
+    return this.carts[0];
   }
 }

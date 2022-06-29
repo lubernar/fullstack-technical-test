@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-interface Product {
+interface Item {
   id: number;
   image: string;
   name: string;
@@ -10,14 +10,15 @@ interface Product {
 type CartState = {
   loading: boolean;
   error: boolean;
-  products: Product[];
+  items: Item[];
 };
 
-type CartContextType = {
+export type CartContextType = {
   cart: CartState[];
-  addToCart: (id: number, product: Product) => void;
+  addToCart: (id: number, item: Item) => void;
   removeFromCart: (id: number) => void;
 };
+
 export const AppContext = createContext<CartContextType | null>(null);
 
 const url = "http://localhost:4000/cart";
@@ -28,20 +29,22 @@ export function AppWrapper({ children }) {
     {
       loading: false,
       error: false,
-      products: []
+      items: []
     },
   ]);
 
-  const addToCart = async (id, product) => {
+  const addToCart = async (id, item) => {
     try {
       const res = await fetch(`${url}/${id}`, {
         method: 'POST',
-        body: JSON.stringify({ product: product }),
+        body: JSON.stringify({ item: item }),
         headers: { 'Content-Type': 'application/json' },
+        mode: 'cors'
       });
       const newCart = await res.json();
       setCart((prevCart) => {
         const updatedCart = [newCart, ...prevCart];
+        console.log({updatedCart})
         return updatedCart;
       });
     } catch (err) {
