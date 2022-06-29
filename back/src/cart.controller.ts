@@ -6,6 +6,11 @@ import { AddToCartDTO } from './dto/add-to-cart.dto';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
+  @Get('/')
+  getCarts(): Cart[] {
+    return this.cartService.getCarts();
+  }
+
   @Get('/:id')
   getCart(@Param('id') id: string): Cart {
     return this.cartService.getCart(id);

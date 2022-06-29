@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 interface Item {
   id: number;
@@ -9,7 +9,7 @@ interface Item {
 
 type CartState = {
   loading: boolean;
-  error: boolean;
+  error: string;
   items: Item[];
 };
 
@@ -28,10 +28,27 @@ export function AppWrapper({ children }) {
   const [cart, setCart] = useState<CartState[]>([
     {
       loading: false,
-      error: false,
+      error: '',
       items: []
     },
   ]);
+
+  useEffect(() => {
+    setCart({ ...cart });
+    (async () => {
+      try {
+        const res = await fetch(url, {
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const newCart = await res.json();
+        setCart([{ items: newCart[0].items, error: '', loading: false }])
+
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [])
+
 
   const addToCart = async (id, item) => {
     try {
@@ -44,7 +61,6 @@ export function AppWrapper({ children }) {
       const newCart = await res.json();
       setCart((prevCart) => {
         const updatedCart = [newCart, ...prevCart];
-        console.log({updatedCart})
         return updatedCart;
       });
     } catch (err) {

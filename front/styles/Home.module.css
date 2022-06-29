@@ -3,8 +3,6 @@
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .main {
@@ -118,6 +116,25 @@
   margin-top: 5rem;
   display: flex;
   flex-wrap: wrap;
+}
+
+.header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header_title {
+  margin-left: 1.5rem;
+}
+
+.cart_img_header {
+  margin-right: 1.5rem;
+  display: flex;
+}
+
+.cart_img_header :hover {
+  cursor: pointer;
 }
 
 @media (max-width: 600px) {

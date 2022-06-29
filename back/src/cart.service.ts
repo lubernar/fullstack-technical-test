@@ -29,6 +29,10 @@ export class CartService {
     throw new NotImplementedException();
   }
 
+  getCarts(): Cart[] {
+    return this.carts;
+  }
+
   putItem(id: string, item: Item): Cart {
     this.carts[0].items.push(item);
     return this.carts[0];
