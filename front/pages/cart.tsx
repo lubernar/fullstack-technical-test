@@ -3,7 +3,7 @@ import styles from '../styles/Cart.module.css'
 import { useAppContext } from 'context/AppContext';
 
 function cart() {
-  const { cart, addToCart, removeFromCart } = useAppContext();
+  const { cart } = useAppContext();
 
   const totalPrice = () => {
     return cart[0].items.reduce((a, b) => a+ b.salePrice, 0);

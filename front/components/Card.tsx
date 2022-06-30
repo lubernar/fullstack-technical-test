@@ -18,7 +18,6 @@ function Card(props: CardProp) {
 
   const { image, name, salePrice, objectID } = props;
 
-  console.log(cart[0].items)
   const addProduct = () => {
     addToCart(objectID, {
       objectID,
